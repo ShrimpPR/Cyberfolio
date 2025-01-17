@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Project{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #f9fafb;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .form-wrapper {
+            margin: 2rem auto;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #222;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            margin-top: 1rem;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            margin-top: 1rem;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #003d7a;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+
+    <div class="form-wrapper">
+        <h1>Edit Project Information</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('project_main') }}" class="btn btn-secondary">Back to Project List</a>
+    </div>
+{% endblock %}

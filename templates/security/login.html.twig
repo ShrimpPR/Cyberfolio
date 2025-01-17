@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column; /* Arrange children in a column */
+            gap: 1rem; /* Adds space between elements */
+            max-width: 400px; /* Optional: limits the width of the form */
+            margin: 0 auto; /* Centers the form horizontally */
+        }
+
+        .form-control {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.firstname }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <label for="username">Email</label>
+        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" required autofocus>
+
+        <label for="password">Password</label>
+        <input type="password" name="_password" id="password" class="form-control" required>
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Sign in
+        </button>
+    </form>
+{% endblock %}

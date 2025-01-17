@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Technology Information{% endblock %}
+
+{% block body %}
+    <style>
+        .technology-info { margin: 1em auto; max-width: 800px; font: 18px/1.5 sans-serif; }
+        .technology-info table { width: 100%; border-collapse: collapse; }
+        .technology-info th, .technology-info td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .technology-info th { background-color: #f4f4f4; }
+    </style>
+
+    <div class="technology-info">
+        <h1>Technology Information</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <td>{{ technology.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ technology.name }}</td>
+            </tr>
+{#            <tr>#}
+{#                <th>Description</th>#}
+{#                <td>{{ technology.description }}</td>#}
+{#            </tr>#}
+        </table>
+        <a href="{{ path('technology_main') }}">Back to Technology List</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User List{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 900px;
+            width: 100%;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+        .btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #34495e;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #ecf0f1;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+    </style>
+
+    <div class="container">
+        <h1>User List</h1>
+
+        <div class="btn-container">
+            <a href="/" class="btn">Back</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('project_add') }}" class="btn">Add Project</a>
+            {% endif %}
+        </div>
+
+        {% if users is not empty %}
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <a href="{{ path('user_info', { id: user.id }) }}">View</a>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('user_edit', { id: user.id }) }}">Edit</a>
+                                <form action="{{ path('user_delete', { id: user.id }) }}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    <button type="submit" class="btn-danger">Delete</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No users found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Technology{% endblock %}
+
+{% block body %}
+    <h1>Edit Technology Information</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <a href="{{ path('technology_main') }}" class="btn btn-secondary">Back to Technology List</a>
+{% endblock %}

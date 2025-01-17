@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project Information{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #f9fafb;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .project-info {
+            margin: 2rem auto;
+            max-width: 800px;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #222;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        td img {
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 2rem;
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <div class="project-info">
+        <h1>Project Information</h1>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <td>{{ project.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ project.title }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ project.createdAt|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ project.description }}</td>
+            </tr>
+            <tr>
+                <th>Screenshot</th>
+                <td>
+                    {% if project.screenshot %}
+                        <img src="{{ asset('uploads/screenshots/' ~ project.screenshot) }}" alt="Screenshot" width="150">
+                    {% else %}
+                        No screenshot available.
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>URL</th>
+                <td>
+                    {% if project.url %}
+                        <a href="{{ project.url }}" target="_blank">{{ project.url }}</a>
+                    {% else %}
+                        No URL available.
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <a href="{{ path('project_main') }}" class="btn-back">Back to Project List</a>
+    </div>
+{% endblock %}

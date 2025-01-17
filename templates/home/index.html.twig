@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #444;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:hover {
+            background-color: #f0f0f0;
+        }
+
+        .project-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 6px 12px;
+            margin-top: 5px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .general-project-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .general-project-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+
+    <div class="container">
+        {% if app.user %}
+            <div class="alert">
+                You are logged in as {{ app.user.firstname }}. <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1>{{ message }}</h1>
+        <p>{{ text }}</p>
+
+        <h2>User List</h2>
+        {% if users is not empty %}
+            <ul>
+                {% for user in users %}
+                    <li>
+                        {{ user.firstname }} {{ user.lastname }}
+                        {% if user.projects is not empty %}
+                            <ul>
+                                {% for project in user.projects %}
+                                    <li>
+                                        {{ project.title }}
+                                        <a href="{{ path('project_info', { id: project.id }) }}" class="project-btn">Go to Project</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No projects linked to this user.</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No users found.</p>
+        {% endif %}
+
+        <a href="{{ path('project_main') }}" class="general-project-btn">Go to Project Page</a>
+        <a href="{{ path('user_main') }}" class="general-project-btn">Go to User Page</a>
+    </div>
+{% endblock %}

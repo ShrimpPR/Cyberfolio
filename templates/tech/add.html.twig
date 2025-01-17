@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Technology{% endblock %}
+
+{% block body %}
+    <h1>Create a New Technology</h1>
+
+    <a href="{{ path('technology_main') }}" class="btn btn-secondary">Back</a>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}

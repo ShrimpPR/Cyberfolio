@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Technology List{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .btn-add-technology {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .btn-add-technology:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <div>
+        <h1>Technology List</h1>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('technology_add') }}" class="btn-add-technology">Add Technology</a>
+        {% endif %}
+
+        {% if technologies is not empty %}
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for technology in technologies %}
+                    <tr>
+                        <td>{{ technology.id }}</td>
+                        <td>{{ technology.name }}</td>
+                        <td>
+                            <a href="{{ path('technology_info', { id: technology.id }) }}">View</a>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('technology_edit', { id: technology.id }) }}">Edit</a>
+                                <form action="{{ path('technology_delete', { id: technology.id }) }}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this technology?');">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No technologies found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
